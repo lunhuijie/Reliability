@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="css/common/font-awesome.min.css">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/common/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="assets/css/demo.css">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="shortcut icon" href="assets/ico/favicon.png">
+	<link rel="stylesheet" href="css/common/main.css">
+	<link rel="stylesheet" href="css/common/ace.min.css">
+	<script src = "js/function.js"></script>
+	<script src = "js/jquery.min.js"></script>
+
+</head>
+
+<body>
+<div id="show" class="modal" role="dialog" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+</div>
+<!-- WRAPPER -->
+<div id="wrapper">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="brand">
+			<a href="index1.html"><img src="assets/img/logo.png" alt="Klorofil Logo" class="img-responsive logo" style="height: 25px;width: 139px"></a>
+		</div>
+		<div class="container-fluid">
+			<div class="navbar-btn">
+				<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+			</div>
+			<form class="navbar-form navbar-left">
+
+			</form>
+			<div id="navbar-menu">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-alarm"></i>
+							<span  id="userRemind"class="badge bg-danger"></span>
+						</a>
+						<ul class="dropdown-menu notifications" id="userRemindList">
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- LEFT SIDEBAR -->
+	<div id="sidebar-nav" class="sidebar">
+		<div class="sidebar-scroll">
+			<nav>
+				<ul class="nav">
+					<li><a href="index.html" class=""><i class="lnr lnr-home"></i> <span>JM模型</span></a></li>
+					<li><a href="index1.html" class=""><i class="lnr lnr-code"></i> <span>GO模型</span></a></li>
+					<li><a href="index2.html" class=""><i class="lnr lnr-chart-bars"></i> <span>PLR</span></a></li>
+					<li><a href="index4.html" class="active"><i class="lnr lnr-alarm"></i> <span>UY图</span></a></li>
+					<li><a href="index5.html" class=""><i class="lnr lnr-alarm"></i> <span>BP模型</span></a></li>
+					<li><a href="index6.html" class=""><i class="lnr lnr-alarm"></i> <span>SVM</span></a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- END LEFT SIDEBAR -->
+	<!-- MAIN -->
+	<div class="main">
+		<!-- MAIN CONTENT -->
+		<div class="main-content">
+			<div class="container-fluid">
+				<div class="tabbable" >
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-toggle="tab" href="#edit-basic">
+								基本信息
+							</a>
+						</li>
+					</ul>
+					<div class="panel panel-headline">
+						<div class="tab-content profile-edit-tab-content">
+							<div id="edit-basic" class="tab-pane in active" style="min-height: 600px">
+								<script>
+                                    function UYStart(){
+                                        var file = document.getElementById("UYDATA").files[0];
+                                        //var data;
+                                        var reader = new FileReader;
+                                        reader.readAsText(file,'gb2312');
+                                        reader.onload = function (evt){
+                                            var data = evt.target.result;
+                                            var param = data.split('\n');
+                                            console.log(param)
+                                            var datas = new Array();
+                                            for(var i = 0;i<param.length;i++){
+
+                                                var t = param[i].split('\t');
+												/*var resultStr=data.replace(/\ +/g,"");//去掉空格
+												 resultStr=data.replace(/[ ]/g,"");    //去掉空格
+												 resultStr=data.replace(/[\r\n]/g,""));//去掉回车换行*/
+                                                datas.push(t[1]);
+                                                //console.log(t)
+                                            }
+                                            console.log(datas)
+                                            var obj = {
+                                                data: JSON.stringify(datas),
+                                            };
+                                            console.log(obj);
+                                            postAjax("UYservlet",obj,Draw);
+                                            //console.log(this.result);
+                                        }
+
+                                    }
+                                    function Draw(result){
+                                        var obj = JSON.parse(result);
+                                        x = document.getElementById("shuoming4");
+                                        var str = "U-ks = "+ obj.ksu + "<br>Y-ks = " + obj.ksy + "";
+                                        x.innerHTML = str;
+                                        console.log(obj)
+                                        var data1=new Array();
+                                        for(var i=0;i<obj.ux.length;i++){
+                                            data1.push({X:obj.ux[i],Y:obj.uy[i]})
+                                        }
+                                        var data2=new Array();
+                                        for(var i=0;i<obj.ux.length;i++){
+                                            data2.push({X:obj.yx[i],Y:obj.yy[i]})
+                                        }
+                                        draw(data1,data2,"UPage");
+                                    }
+                                    function draw(data,datas,name){//data是点的数据 name是canvas的id
+                                        var c=document.getElementById(""+name+"");
+                                        var ctx=c.getContext("2d");
+                                        ctx.fillRect(38,548,4,4);//绘制坐标系
+                                        ctx.beginPath();
+                                        ctx.moveTo(40,550);
+                                        ctx.lineTo(40,50);
+                                        ctx.moveTo(40,550);
+                                        ctx.lineTo(540,550);
+
+                                        ctx.moveTo(40,550);
+                                        ctx.lineTo(540,50);
+
+                                        ctx.moveTo(540,550);
+                                        ctx.lineTo(535,545);
+                                        ctx.moveTo(540,550);
+                                        ctx.lineTo(535,555);
+
+                                        ctx.moveTo(40,50);
+                                        ctx.lineTo(35,55);
+                                        ctx.moveTo(40,50);
+                                        ctx.lineTo(45,55);
+
+                                        ctx.fillText("0",30, 560,20);
+                                        ctx.lineWidth=2;
+
+                                        ctx.stroke();
+                                        ctx.beginPath();
+                                        ctx.strokeStyle="yellow";
+                                        ctx.moveTo(40,550);
+                                        ctx.lineTo(540,50);
+                                        ctx.stroke();
+                                        ctx.strokeStyle="black";
+                                        var maxX=0,maxY=0,minX=0,minY=0;//获取坐标转换系数
+                                        $(data).each(function(key,obj) {
+                                            minX = obj.X < minX ? obj.X : minX;
+                                            minY = obj.Y < minY ? obj.Y : minY;
+                                            maxX = obj.X > maxX ? obj.X : maxX;
+                                            maxY = obj.Y > maxY ? obj.Y : maxY;
+                                        })
+                                        var scaleX=500/((maxX-minX)*8/7);
+                                        var scaleY=500/((maxY-minY)*8/7);
+                                        var flag = scaleX<scaleY? scaleX:scaleY;
+                                        for(var i=1;i<=5;i++){
+                                            ctx.beginPath();
+                                            ctx.moveTo(100*i+40,550);
+                                            ctx.lineTo(100*i+40,545);
+                                            var x=parseInt(10000*i/flag)/100;
+                                            ctx.fillText(""+x+"",100*i+45-5*(x+"").length,560,20);
+                                            ctx.lineWidth=2;
+                                            ctx.stroke();
+                                        }
+                                        for(var i=1;i<=5;i++){
+                                            ctx.beginPath();
+                                            ctx.moveTo(40,500-100*i+50);
+                                            ctx.lineTo(45,500-100*i+50);
+                                            var y=parseInt(10000*i/flag)/100;
+                                            ctx.fillText(""+y+"",30-5*(y+"").length, 500-100*i+55,20);
+                                            ctx.lineWidth=2;
+                                            ctx.stroke();
+                                        }
+                                        $(data).each(function(key,obj) {
+                                            ctx.beginPath();
+                                            ctx.fillRect(obj.X*flag+40-2,550-obj.Y*flag-2,2,2);
+                                            ctx.stroke();
+                                        })
+                                        $(datas).each(function(key,obj) {
+                                            ctx.beginPath();
+                                            ctx.fillRect(obj.X*flag+40-2,550-obj.Y*flag-2,2,2);
+                                            ctx.stroke();
+                                        })
+                                        ctx.strokeStyle="red";
+                                        for(var i=0;i<data.length-1;i++){
+                                            ctx.beginPath();
+                                            ctx.moveTo(data[i].X*flag+40-2,550-data[i].Y*flag-2);
+                                            ctx.lineTo(data[i+1].X*flag+40-2,550-data[i+1].Y*flag-2);
+                                            ctx.lineWidth=1;
+                                            ctx.stroke();
+                                        }
+                                        ctx.strokeStyle="green";
+                                        for(var i=0;i<datas.length-2;i++){
+                                            ctx.beginPath();
+                                            ctx.moveTo(datas[i].X*flag+40-2,550-datas[i].Y*flag-2);
+                                            ctx.lineTo(datas[i+1].X*flag+40-2,550-datas[i+1].Y*flag-2);
+                                            ctx.lineWidth=1;
+                                            ctx.stroke();
+                                        }
+                                    }
+								</script>
+								<div id="container" class="col-md-offset-3">
+									<form id = "UYupload">
+										<input type="file" name="file" id="UYDATA" value = "失效数据"/>
+										<br>
+										<button class="btn btn-default" onclick = "UYStart()" type="button">开始</button>
+									</form>
+									<div class="row">
+										<div class="col-md-3"></div>
+										<div class="col-md-4">
+											<p id = "shuoming4" style="font-size:20px;color:red!important"></p>
+											<canvas id="UPage" height="600px" width="600px"></canvas>
+											<span id = "shuoming1" style="font-size:20px;color:red!important">U图    </span>
+											<span id = "shuoming2" style="font-size:20px;color:green!important">Y图    </span>
+											<span id = "shuoming3" style="font-size:20px;color:yellow!important">X=Y</span>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END MAIN CONTENT -->
+	</div>
+	<!-- END MAIN -->
+	<div class="clearfix"></div>
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+
+</body>
+
+</html>

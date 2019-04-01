@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<title>demo</title>
+</head>
+<body>
+	<div id="allmap">
+		<canvas id="demo" width="800" height="1000"></canvas>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</html>
+<script type="text/javascript">
+$(function () {
+    var param=new Array(
+        {X:0.3,Y:0.5},
+		{X:0.7,Y:0.9}
+        )
+	draw(param,"demo");
+})
+function draw(data,name){//data是点的数据 name是canvas的id
+	var c=document.getElementById(""+name+"");
+    var ctx=c.getContext("2d");
+    ctx.fillRect(38,548,4,4);//绘制坐标系
+    ctx.beginPath();
+    ctx.moveTo(40,550);
+    ctx.lineTo(40,50);
+    ctx.moveTo(40,550);
+    ctx.lineTo(540,550);
+    ctx.movoTo(40,550);
+    ctx.lineTo(540,50);
+
+    ctx.moveTo(540,550);
+    ctx.lineTo(535,545);
+    ctx.moveTo(540,550);
+    ctx.lineTo(535,555);
+
+    ctx.moveTo(40,50);
+    ctx.lineTo(35,55);
+    ctx.moveTo(40,50);
+    ctx.lineTo(45,55);
+
+    ctx.fillText("0",30, 560,20);
+    ctx.lineWidth=2;
+
+    ctx.stroke();
+    var maxX=0,maxY=0,minX=0,minY=0;//获取坐标转换系数
+    $(data).each(function(key,obj) {
+            minX = obj.X < minX ? obj.X : minX;
+            minY = obj.Y < minY ? obj.Y : minY;
+            maxX = obj.X > maxX ? obj.X : maxX;
+            maxY = obj.Y > maxY ? obj.Y : maxY;
+    })
+    var scaleX=500/((maxX-minX)*8/7);
+    var scaleY=500/((maxY-minY)*8/7);
+    var flag = scaleX<scaleY? scaleX:scaleY;
+    for(var i=1;i<=5;i++){
+        ctx.beginPath();
+        ctx.moveTo(100*i+40,550);
+        ctx.lineTo(100*i+40,545);
+        var x=parseInt(1000*i/flag)/10;
+        ctx.fillText(""+x+"",100*i+45-5*(x+"").length,560,20);
+        ctx.lineWidth=2;
+        ctx.stroke();
+	}
+    for(var i=1;i<=5;i++){
+        ctx.beginPath();
+        ctx.moveTo(40,500-100*i+50);
+        ctx.lineTo(45,500-100*i+50);
+        var y=parseInt(1000*i/flag)/10;
+        ctx.fillText(""+y+"",30-5*(y+"").length, 500-100*i+55,20);
+        ctx.lineWidth=2;
+        ctx.stroke();
+    }
+    $(data).each(function(key,obj) {
+        ctx.beginPath();
+        ctx.fillRect(obj.X*flag+40-2,550-obj.Y*flag-2,4,4);
+        ctx.lineWidth=2;
+        ctx.stroke();
+    })
+}
+</script>

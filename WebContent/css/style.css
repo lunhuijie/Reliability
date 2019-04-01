@@ -1,0 +1,33 @@
+  .{
+        margin: 0px;
+        padding: 0px
+    }
+
+    #container {
+        height: 100%
+    }
+
+    #left {
+        background-color:#eeeeee;
+        height:734px;
+        width:20%;
+        float:left;       
+    }
+    #content {
+        background-color:#eeeeee;
+        height:734px;
+        width:60%;
+        float:left;        
+    }
+    #right {
+        background-color:#eeeeee;
+        height:734px;
+        width:20%;
+        float:left;     
+    }
+    #show {
+         position: absolute;
+         width:20%;
+        float:left;
+         top:"0px"     
+    }

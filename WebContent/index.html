@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="css/common/font-awesome.min.css">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/common/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="assets/css/demo.css">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="shortcut icon" href="assets/ico/favicon.png">
+	<link rel="stylesheet" href="css/common/main.css">
+	<link rel="stylesheet" href="css/common/ace.min.css">
+
+	<script src = "js/function.js"></script>
+	<script src = "js/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="show" class="modal" role="dialog" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+</div>
+<!-- WRAPPER -->
+<div id="wrapper">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="brand">
+			<a href="index1.html"><img src="assets/img/logo.png" alt="Klorofil Logo" class="img-responsive logo" style="height: 25px;width: 139px"></a>
+		</div>
+		<div class="container-fluid">
+			<div class="navbar-btn">
+				<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+			</div>
+			<form class="navbar-form navbar-left">
+
+			</form>
+			<div id="navbar-menu">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-alarm"></i>
+							<span  id="userRemind"class="badge bg-danger"></span>
+						</a>
+						<ul class="dropdown-menu notifications" id="userRemindList">
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- LEFT SIDEBAR -->
+	<div id="sidebar-nav" class="sidebar">
+		<div class="sidebar-scroll">
+			<nav>
+				<ul class="nav">
+					<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>JM模型</span></a></li>
+					<li><a href="index1.html" class=""><i class="lnr lnr-code"></i> <span>GO模型</span></a></li>
+					<li><a href="index2.html" class=""><i class="lnr lnr-chart-bars"></i> <span>PLR</span></a></li>
+					<li><a href="index4.html" class=""><i class="lnr lnr-alarm"></i> <span>UY图</span></a></li>
+					<li><a href="index5.html" class=""><i class="lnr lnr-alarm"></i> <span>BP模型</span></a></li>
+					<li><a href="index6.html" class=""><i class="lnr lnr-alarm"></i> <span>SVM</span></a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- END LEFT SIDEBAR -->
+	<!-- MAIN -->
+	<div class="main">
+		<!-- MAIN CONTENT -->
+		<div class="main-content">
+			<div class="container-fluid">
+				<div class="tabbable" >
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-toggle="tab" href="#edit-basic">
+								基本信息
+							</a>
+						</li>
+					</ul>
+					<div class="panel panel-headline">
+						<div class="tab-content profile-edit-tab-content">
+							<div id="edit-basic" class="tab-pane in active" style="min-height: 600px">
+								<script>
+                                    function JMStart(){
+                                        var file = document.getElementById("JMDATA").files[0];
+                                        //var data;
+                                        var reader = new FileReader;
+                                        reader.readAsText(file,'gb2312');
+                                        reader.onload = function (evt){
+                                            var data = evt.target.result;
+                                            var param = data.split('\n');
+                                            console.log(param)
+                                            var datas = new Array();
+                                            for(var i = 0;i<param.length;i++){
+
+                                                var t = param[i].split('\t');
+												/*var resultStr=data.replace(/\ +/g,"");//去掉空格
+												 resultStr=data.replace(/[ ]/g,"");    //去掉空格
+												 resultStr=data.replace(/[\r\n]/g,""));//去掉回车换行*/
+                                                datas.push(t[1]);
+                                                //console.log(t)
+                                            }
+                                            console.log(datas)
+                                            var ev = document.getElementById("JMEV").value;
+                                            var ex = document.getElementById("JMEX").value;
+                                            var n = datas.length;
+                                            var obj = {
+                                                data: JSON.stringify(datas),
+                                                ev:ev,
+                                                ex:ex,
+                                                n:n
+                                            };
+                                            console.log(obj);
+                                            postAjax("Jmservlet",obj,Draw);
+                                            //console.log(this.result);
+                                        }
+
+                                    }
+                                    function Draw(result){
+                                        console.log(result);
+                                        x = document.getElementById("JMresult");
+                                        x.innerHTML = "<br><br>"+result;
+                                    }
+								</script>
+								<div id="container" class="col-md-offset-3">
+									<form id = "JMupload">
+										<input type="file" name="file" id="JMDATA" value = "失效数据"/>
+										<br>
+										<input id = "JMEV" placeholder= "ev：">
+										<input id = "JMEX" placeholder= "ex：">
+
+										<button class="btn btn-default" onclick = "JMStart()" type="button">开始</button>
+									</form>
+									<p id = "JMresult" style="font-size:20px;color:red!important"> </p>
+									<div >
+
+										<script type="text/javascript">
+
+										</script>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END MAIN CONTENT -->
+	</div>
+	<!-- END MAIN -->
+	<div class="clearfix"></div>
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+
+</body>
+
+</html>

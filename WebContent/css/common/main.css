@@ -1,0 +1,10 @@
+.modal-dialog{
+    width: 30% !important;
+    left: auto !important;
+    box-shadow: none !important;
+    border-radius: 5px !important;
+}
+.metric>span>i{
+    position: relative;
+    top:15px;
+}

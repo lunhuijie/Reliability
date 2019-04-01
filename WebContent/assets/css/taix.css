@@ -1,0 +1,81 @@
+    body{
+        margin: 0px;
+        padding: 0px;
+        text-align:center
+    }
+
+    #container {
+        height: 100%
+    }
+
+    #left {
+        background-color:#eeeeee;
+        height:734px;
+        width:20%;
+        float:left;  
+          
+    }
+    #content {
+        background-color:#eeeeee;
+        height:734px;
+        width:60%;
+        float:left;        
+    }
+    #right {
+        background-color:#eeeeee;
+        height:734px;
+        width:20%;
+        float:left;     
+    }
+    #show {
+         width:100%;
+         top:"0px"     
+    }
+    .gauges{
+        margin-top: 25px;
+        width: 100%;
+             
+    }
+    .button{
+        border-color: #88a;
+   background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    }
+     .button:hover {
+            background-color: #ff0000;
+        }
+
+
+        /*active 要在后面 否则会被hover覆盖*/
+
+
+        .button:focus {
+            background-color: #00ff00;
+        }
+
+
+        .button:active {
+            background-color: #000000;
+        }
+         .button:hover {
+            background-color: #ff0000;
+        }
+
+
+    #search{
+    }
+    #cph{
+        border-color: #88a;
+       height: 31px;
+        /*box-shadow: 0 0 5px rgba(0, 0, 255, .5);*/
+    }
+    #display{
+        margin:0 auto;
+    }
+    
